@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo | <%= title %></title>
+</head>
+<body>
+    <header>
+        <!-- partials -->
+    </header>
+
+    <main class="beAdminDiv">
+        <h1>Become an Administrator</h1>
+        <p>Be an admin to access administrator priviliges.</p>
+
+        <!-- Errors -->
+        <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
+            <ul style="color: red; list-style-type: none; padding: 0;">
+                <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+
+        <!-- Form -->
+        <form action="/be-admin" method="post" class="beAdminForm">
+            <label for="passcode">Admin passcode:</label>
+            <input type="password" name="passcode" id="passcode" required>
+
+            <button type="submit">Unlock Admin</button>
+        </form>
+
+        <p><a href="/">Back to Home</a></p>
+    </main>
+
+    <footer>
+        <!-- partials -->
+    </footer>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo | <%= title %></title>
+    <style>
+        .msgContainer {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .msgTitle {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .msgContent {
+            margin-bottom: 10px;
+        }
+        .msgInfo {
+            font-size: 0.9em;
+            color: #777;
+        }
+        .msgAuthor {
+            font-weight: bold;
+        }
+        /* Styles for flash messages */
+        .flashSuccess {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .flashError {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        /* Style for the delete button */
+        .deleteBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f44336; /* Red */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .deleteBtn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- partials -->
+    </header>
+
+    <main class="indexDiv">
+        <h1>ECHO</h1>
+
+        <!-- Flash messages -->
+        <% if(typeof messages !== 'undefined') { %>
+            <% if(flashMessages.success && flashMessages.success.length > 0) { %>
+                <div class="flashSuccess">
+                    <% flashMessages.success.forEach(msg => { %>
+                        <p><%= msg %></p>
+                    <% }) %>
+                </div>
+            <% } %>
+            
+            <% if(flashMessages.error && flashMessages.error.length > 0) { %>
+                <div class="flashError">
+                    <% flashMessages.error.forEach(msg => { %> 
+                        <p class="<%= msg %>"></p>
+                    <% }) %>
+                </div>
+            <% } %>
+        <% } %>
+
+        <!-- Links -->
+        <% if(currentUser) { %>
+            <h2><%= currentUser.username %>'s feed</h2>
+            <p>Create message</p>
+            <p><a href="/log-out">Log out</a></p>
+            <p><a href="/create-message">Create a message</a></p>
+
+            <% if(!currentUser.is_member) { %>
+                <p><a href="/be-member">Become a Member</a></p>
+            <% } %>
+
+            <% if(!currentUser.is_admin) { %>
+                <p><a href="/be-admin">Become an Admin</a></p>
+            <% } %>
+
+        <% } else { %>
+            <p>
+                <a href="/log-in">Log In</a> or <a href="/sign-up">Sign Up</a> to post messages.
+            </p>
+        <% } %>
+
+        <hr>
+
+        <!-- Messages -->
+        <h2>All Messages</h2>
+
+        <% if(messages && messages.length > 0) { %>
+            <% messages.forEach(message => { %>
+                <div class="msgContainer">
+                    <h3 class="msgTitle"><%= message.title %></h3>
+                    <p class="msgContent"><%= message.text_content %></p>
+                    <p class="msgInfo">
+                        Posted by:
+                        <% if(currentUser && currentUser.is_member) { %>
+                            <span class="msgAuthor"><%= message.author_username %></span>
+                            <span class="msgDate"><%= new Date(message.timestamp).toLocaleString() %></span>
+                            <!-- flex-direction: column -->
+                        <% } else { %>
+                            <span class="msgAuthor">Anonymous</span>
+                        <% } %>
+                    </p>
+
+                    <% if(currentUser && currentUser.is_admin) { %>
+                        <form action="/message/<%= message.id %>/delete" method="post" style="display: inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            <% }) %>
+        <% } else{ %>
+            <p>No messages yet. Be the first to post!</p>
+        <% } %>
+    </main>
+
+    <footer>
+        <!-- partials -->
+    </footer>
+</body>
+</html>

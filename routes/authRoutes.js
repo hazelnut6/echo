@@ -145,7 +145,7 @@ authRouter.post('/be-member', isNotMember,
 authRouter.get('/be-admin', isNotAdmin, (req, res) => {
     res.render('be-admin', { title: 'Enter as Admin', errors: []  });
 });
-app.post('/be-admin', isNotAdmin,
+authRouter.post('/be-admin', isNotAdmin,
     [
         body('passcode')
         .trim()

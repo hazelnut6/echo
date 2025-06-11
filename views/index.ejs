@@ -4,74 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Echo | <%= title %></title>
-    <style>
-        .msgContainer {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .msgTitle {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .msgContent {
-            margin-bottom: 10px;
-        }
-        .msgInfo {
-            font-size: 0.9em;
-            color: #777;
-        }
-        .msgAuthor {
-            font-weight: bold;
-        }
-        /* Styles for flash messages */
-        .flashSuccess {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-        .flashError {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-        /* Style for the delete button */
-        .deleteBtn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #f44336; /* Red */
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.8em;
-        }
-        .deleteBtn:hover {
-            background-color: #d32f2f;
-        }
-    </style>
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-    <header>
-        <!-- partials -->
-    </header>
+    <%- include('partials/header') %>
 
     <main class="indexDiv">
-        <h1>ECHO</h1>
+        <h1>Welcome to Echo</h1>
 
         <!-- Flash messages -->
-        <% if(typeof messages !== 'undefined') { %>
+        <% if(typeof flashMessages !== 'undefined') { %>
             <% if(flashMessages.success && flashMessages.success.length > 0) { %>
                 <div class="flashSuccess">
                     <% flashMessages.success.forEach(msg => { %>
@@ -92,17 +34,33 @@
         <!-- Links -->
         <% if(currentUser) { %>
             <h2><%= currentUser.username %>'s feed</h2>
-            <p>Create message</p>
-            <p><a href="/log-out">Log out</a></p>
-            <p><a href="/create-message">Create a message</a></p>
 
-            <% if(!currentUser.is_member) { %>
-                <p><a href="/be-member">Become a Member</a></p>
-            <% } %>
+            <!-- Create message div -->
+            <div class="createMsg">
+                <h3>Create message</h3>
 
-            <% if(!currentUser.is_admin) { %>
-                <p><a href="/be-admin">Become an Admin</a></p>
-            <% } %>
+                <!-- Errors -->
+                <% if(typeof flashMessages !== 'undefined' && flashMessages.validationErrors && flashMessages.validationErrors.length > 0) { %>
+                    <ul style="color: red; list-style-type: none; padding: 0;">
+                        <% flashMessages.validationErrors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+
+                <!-- Create form -->
+                <form action="/create-message" method="post" class="createMsgForm">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" placeholder="Post title" required value="<%= typeof flashMessages !== 'undefined' ? flashMessages.oldInput.title : '' %>"><br><br>
+
+                    <label for="text_content">Content:</label>
+                    <textarea name="text_content" id="text_content" rows="10" cols="30" placeholder="Type your message...">
+                        <%= typeof flashMessages !== 'undefined' ? flashMessages.oldInput.text_content : '' %>
+                    </textarea><br><br>
+
+                    <button type="submit">Post</button>
+                </form>
+            </div>
 
         <% } else { %>
             <p>
@@ -133,7 +91,7 @@
 
                     <% if(currentUser && currentUser.is_admin) { %>
                         <form action="/message/<%= message.id %>/delete" method="post" style="display: inline;">
-                            <button type="submit">Delete</button>
+                            <button type="submit" class="deleteBtn">Delete</button>
                         </form>
                     <% } %>
                 </div>
@@ -143,8 +101,6 @@
         <% } %>
     </main>
 
-    <footer>
-        <!-- partials -->
-    </footer>
+    <%- include('partials/footer') %>
 </body>
 </html>

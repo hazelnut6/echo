@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Echo | <%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-    <header>
-        <!-- partials -->
-    </header>
+    <%- include('partials/header') %>
 
     <main class="beAdminDiv">
         <h1>Become an Administrator</h1>
@@ -16,7 +15,7 @@
 
         <!-- Errors -->
         <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
-            <ul style="color: red; list-style-type: none; padding: 0;">
+            <ul class="member-admin-form">
                 <% errors.forEach(error => { %>
                     <li><%= error.msg %></li>
                 <% }) %>
@@ -34,8 +33,6 @@
         <p><a href="/">Back to Home</a></p>
     </main>
 
-    <footer>
-        <!-- partials -->
-    </footer>
+    <%- include('partials/footer') %>
 </body>
 </html>

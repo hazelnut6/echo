@@ -10,29 +10,27 @@
     <%- include('partials/header') %>
 
     <main class="beMemberDiv">
-        <h1>Join the club!</h1>
-        <p>Become a member to access membership priviliges</p>
+        <section class="beFormSect">
+            <h1>Join the membership!</h1>
+            <p>Become a member to access membership priviliges</p>
 
-        <!-- Errors -->
-        <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
-            <ul class="member-admin-form">
-                <% errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                <% }) %>
-            </ul>
-        <% } %>
+            <!-- Errors -->
+            <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
+                <ul class="member-admin-form">
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
 
-        <!-- Form -->
-        <form action="/be-member" method="post" class="beMemberForm">
-            <label for="passcode">Secret passcode:</label>
-            <input type="password" name="passcode" id="passcode" required>
+            <!-- Form -->
+            <form action="/be-member" method="post" class="beMemberForm">
+                <label for="passcode">Member passcode</label>
+                <input type="password" name="passcode" id="passcode" placeholder="Enter passcode" required><br>
 
-            <button type="submit">Unlock Membership</button>
-        </form>
-
-        <p><a href="/">Back to Home</a></p>
+                <button type="submit">Unlock Membership</button>
+            </form>
+        </section>
     </main>
-
-    <%- include('partials/footer') %>
 </body>
 </html>

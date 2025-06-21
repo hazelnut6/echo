@@ -9,35 +9,45 @@
 <body>
     <%- include('partials/header') %>
 
-    <main class="indexDiv">
-        <h1>Welcome to Echo</h1>
-
-        <!-- Flash messages -->
-        <% if(typeof flashMessages !== 'undefined') { %>
-            <% if(flashMessages.success && flashMessages.success.length > 0) { %>
-                <div class="flashSuccess">
-                    <% flashMessages.success.forEach(msg => { %>
-                        <p><%= msg %></p>
-                    <% }) %>
+    <main>
+        <% if (!currentUser) { %>
+            <section class="welcomeSect">
+                <div class="welcomeLeft">
+                    <div class="pageTitle">
+                        <p>
+                            Echo <span>Let your message resonate.</span>
+                        </p>
+                    </div>
+                    <div class="ctaBtn">
+                        <a href="/about">
+                            <button>Get Started</button>
+                        </a>
+                    </div>
                 </div>
-            <% } %>
-            
-            <% if(flashMessages.error && flashMessages.error.length > 0) { %>
-                <div class="flashError">
-                    <% flashMessages.error.forEach(msg => { %> 
-                        <p class="<%= msg %>"></p>
-                    <% }) %>
+                <div class="welcomeRight">
+                    <img src="/imgs/ripple.jpg" alt="An image of sample messages" class="rippleImg">
                 </div>
-            <% } %>
+            </section>
         <% } %>
 
         <!-- Links -->
         <% if(currentUser) { %>
-            <h2><%= currentUser.username %>'s feed</h2>
 
             <!-- Create message div -->
-            <div class="createMsg">
-                <h3>Create message</h3>
+            <section class="createMsgSect">
+
+                <!-- Create form -->
+                <form action="/create-message" method="post" class="createMsgForm">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" placeholder="Post title" required value="<%= typeof flashMessages !== 'undefined' ? flashMessages.oldInput.title : '' %>"><br>
+
+                    <label for="text_content">Content</label>
+                    <textarea name="text_content" id="text_content" placeholder="Post content" rows="4">
+                        <%= typeof flashMessages !== 'undefined' ? flashMessages.oldInput.text_content : '' %>
+                    </textarea><br>
+
+                    <button type="submit">Post</button>
+                </form>
 
                 <!-- Errors -->
                 <% if(typeof flashMessages !== 'undefined' && flashMessages.validationErrors && flashMessages.validationErrors.length > 0) { %>
@@ -48,57 +58,58 @@
                     </ul>
                 <% } %>
 
-                <!-- Create form -->
-                <form action="/create-message" method="post" class="createMsgForm">
-                    <label for="title">Title:</label>
-                    <input type="text" name="title" id="title" placeholder="Post title" required value="<%= typeof flashMessages !== 'undefined' ? flashMessages.oldInput.title : '' %>"><br><br>
+                <!-- Flash messages -->
+                <% if(typeof flashMessages !== 'undefined') { %>
+                    <% if(flashMessages.success && flashMessages.success.length > 0) { %>
+                        <div class="flashSuccess">
+                            <% flashMessages.success.forEach(msg => { %>
+                                <p><%= msg %></p>
+                            <% }) %>
+                        </div>
+                    <% } %>
+            
+                    <% if(flashMessages.error && flashMessages.error.length > 0) { %>
+                        <div class="flashError">
+                            <% flashMessages.error.forEach(msg => { %> 
+                                <p class="<%= msg %>"></p>
+                            <% }) %>
+                         </div>
+                    <% } %>
+                <% } %>
+            </section>
 
-                    <label for="text_content">Content:</label>
-                    <textarea name="text_content" id="text_content" rows="10" cols="30" placeholder="Type your message...">
-                        <%= typeof flashMessages !== 'undefined' ? flashMessages.oldInput.text_content : '' %>
-                    </textarea><br><br>
-
-                    <button type="submit">Post</button>
-                </form>
-            </div>
-
-        <% } else { %>
-            <p>
-                <a href="/log-in">Log In</a> or <a href="/sign-up">Sign Up</a> to post messages.
-            </p>
         <% } %>
-
-        <hr>
 
         <!-- Messages -->
-        <h2>All Messages</h2>
+        <section class="msgSect">
+            <h2>All Messages</h2>
 
-        <% if(messages && messages.length > 0) { %>
-            <% messages.forEach(message => { %>
-                <div class="msgContainer">
-                    <h3 class="msgTitle"><%= message.title %></h3>
-                    <p class="msgContent"><%= message.text_content %></p>
-                    <p class="msgInfo">
-                        Posted by:
-                        <% if(currentUser && currentUser.is_member) { %>
-                            <span class="msgAuthor"><%= message.author_username %></span>
-                            <span class="msgDate"><%= new Date(message.timestamp).toLocaleString() %></span>
-                            <!-- flex-direction: column -->
-                        <% } else { %>
-                            <span class="msgAuthor">Anonymous</span>
+            <% if(messages && messages.length > 0) { %>
+                <% messages.forEach(message => { %>
+                    <div class="msgDiv">
+                        <h3 class="msgTitle"><%= message.title %></h3>
+                        <p class="msgContent"><%= message.text_content %></p>
+                        <p class="msgInfo">
+                            <% if(currentUser && currentUser.is_member) { %>
+                                <span class="msgAuthor"><%= message.author_username %></span>
+                                <span class="msgDate"><%= new Date(message.timestamp).toLocaleString() %></span>
+                                <!-- flex-direction: column -->
+                            <% } else { %>
+                                <span class="msgAuthor">-Anonymous</span>
+                            <% } %>
+                        </p>
+
+                        <% if(currentUser && currentUser.is_admin) { %>
+                            <form action="/message/<%= message.id %>/delete" method="post">
+                                <button type="submit" class="deleteBtn">Delete</button>
+                            </form>
                         <% } %>
-                    </p>
-
-                    <% if(currentUser && currentUser.is_admin) { %>
-                        <form action="/message/<%= message.id %>/delete" method="post" style="display: inline;">
-                            <button type="submit" class="deleteBtn">Delete</button>
-                        </form>
-                    <% } %>
-                </div>
-            <% }) %>
-        <% } else{ %>
-            <p>No messages yet. Be the first to post!</p>
-        <% } %>
+                    </div>
+                <% }) %>
+            <% } else{ %>
+                <p>No messages yet. Be the first to post!</p>
+            <% } %>
+        </section>
     </main>
 
     <%- include('partials/footer') %>

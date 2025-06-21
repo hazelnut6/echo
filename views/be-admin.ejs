@@ -9,30 +9,28 @@
 <body>
     <%- include('partials/header') %>
 
-    <main class="beAdminDiv">
-        <h1>Become an Administrator</h1>
-        <p>Be an admin to access administrator priviliges.</p>
+    <main>
+        <section class="beFormSect">
+            <h1>Become an Administrator</h1>
+            <p>Be an admin to access administrator priviliges.</p>
 
-        <!-- Errors -->
-        <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
-            <ul class="member-admin-form">
-                <% errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                <% }) %>
-            </ul>
-        <% } %>
+            <!-- Errors -->
+            <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
+                <ul class="member-admin-form">
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
 
-        <!-- Form -->
-        <form action="/be-admin" method="post" class="beAdminForm">
-            <label for="passcode">Admin passcode:</label>
-            <input type="password" name="passcode" id="passcode" required>
+            <!-- Form -->
+            <form action="/be-admin" method="post" class="beAdminForm">
+                <label for="passcode">Admin passcode</label>
+                <input type="password" name="passcode" id="passcode" placeholder="Enter passcode" required><br>
 
-            <button type="submit">Unlock Admin</button>
-        </form>
-
-        <p><a href="/">Back to Home</a></p>
+                <button type="submit">Unlock Admin</button>
+            </form>
+        </section>
     </main>
-
-    <%- include('partials/footer') %>
 </body>
 </html>

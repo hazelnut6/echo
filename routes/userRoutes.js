@@ -5,9 +5,8 @@ const userController = require('../controllers/userController');
 const userRouter = Router();
 
 userRouter.get('/', userController.getHome);
-
-// userRouter.get('/about', (req, res) => {});
-// userRouter.get('/contact', (req, res) => {});
+userRouter.get('/about', userController.getAbout);
+userRouter.get('/contact', userController.getContact);
 
 
 module.exports = userRouter;

@@ -1,17 +1,18 @@
 <nav class="navbar">
     <div class="navTitle">
-        <a href="/">ECHO</a>
+        <a href="/">Echo</a>
     </div>
     <ul class="navLinks">
         <li><a href="/">Home</a></li> 
+        <li><a href="/about">About</a></li>
         <% if(currentUser) { %> 
-            <li><a href="/log-out">Log Out</a></li>
             <% if(!currentUser.is_member) { %> 
                 <li><a href="/be-member">Be Member</a></li>
             <% } %>
             <% if(!currentUser.is_admin) { %> 
                 <li><a href="/be-admin">Be Admin</a></li>
             <% } %>
+            <li><a href="/log-out">Log Out</a></li>
         <% } else { %> 
             <li><a href="/log-in">Log In</a></li>
             <li><a href="/sign-up">Sign Up</a></li>

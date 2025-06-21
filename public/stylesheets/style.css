@@ -1,0 +1,429 @@
+/* poppins-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/poppins-v22-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* poppins-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/poppins-v22-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+:root {
+    --primary: #47A8BD;
+    --secondary: #D9D9D9;
+    --bg-color: #F2F2F2;
+    --text-color: #1C2A3A;
+    --sm-font: 1rem;
+    --md-font: 1.5rem; 
+    --lg-font: 2.5rem;
+    --btn-hover: #3a8c9e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+    /* line-height: 1.6; */
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    font-size: var(--lg-font);
+}
+
+p {
+    font-size: var(--sm-font);
+}
+
+/* -----NAVBAR----- */
+.navbar {
+    width: 100%;
+    height: 10vh;
+    background-color: var(--text-color);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+}
+
+.navTitle a {
+    color: white;
+    background-color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.navLinks {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--text-color);
+}
+
+.navLinks li a {
+    background-color: var(--text-color);
+    color: white;
+}
+
+.navLinks li a:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+    transition: text-decoration 0.2s ease-in-out;
+}
+
+/* -----CONTAINERS----- */
+main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    background-color: var(--bg-color);
+}
+
+section {
+    grid-column: 2/-2;
+}
+
+/* -----INDEX----- */
+.welcomeSect,
+.abtSect {
+    height: 100vh;
+    padding-top: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-color);
+}
+
+.pageTitle p {
+    font-size: 5rem;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+}
+
+.pageTitle p span {
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: none;
+}
+
+.ctaBtn {
+    margin-top: 70px;
+}
+
+.ctaBtn a button {
+    border-style: none;
+    background-color: var(--primary);
+    padding: 15px 25px;
+    font-size: var(--sm-font);
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+.ctaBtn a button:hover {
+    background-color: var(--btn-hover);
+    cursor: pointer;
+    transition: .5 ease-in-out;
+}
+
+.rippleImg,
+.laptopImg {
+    height: 300px;
+    border-radius: 10px;
+}
+
+.createMsgSect {
+    padding-top: 12vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: 1px solid var(--text-color); */
+}
+
+.createMsgForm {
+    width: 50%;
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.createMsgForm textarea {
+    resize: none;
+    padding: 5px 10px;
+    color: var(--text-color);
+    font-size: var(--sm-font);
+    border-style: none;
+    background-color: white;
+    border: 1px solid var(--secondary);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.flashSuccess,
+.flashError {
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+
+.flashSuccess {
+    color: #155724;
+    border: 1px solid #155724;
+    border-radius: 5px;
+}
+
+.flashError {
+    color: #721c24;
+    border: 1px solid #721c24;
+    padding: 10px;
+}
+
+.msgSect {
+    padding: 9vh 0;
+}
+
+.msgSect h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.msgDiv {
+    margin: 0px 100px;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.msgInfo {
+    color: #585859;
+}
+
+.deleteBtn {
+    margin-top: 5px;
+    padding: 5px 15px;
+    color: white;
+    background-color: #721c24;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.deleteBtn:hover {
+    background-color: #8c232d;
+}
+
+/* -----ABOUT----- */
+.abtSect p {
+    width: 70%;
+    line-height: 1.3;
+}
+
+.guideSect {
+    height: 100vh;
+    padding-top: 10vh;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.card {
+    height: 350px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid var(--text-color);
+}
+
+.cardTop {
+    height: 70%;
+}
+
+.cardTop img {
+    height: 100%;
+    width: 100%;
+}
+
+.cardDown {
+    padding-top: 20px;
+}
+
+.cardDown p {
+    text-align: center;
+}
+
+/* -----LOG IN----- */
+.logInSect,
+.signUpSect,
+.beFormSect {
+    height: 100vh;
+    padding-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--bg-color);
+}
+
+.logInForm {
+    height: 400px;
+    width: 400px;
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.logInForm label,
+.signUpForm label,
+.beAdminForm label,
+.beMemberForm label {
+    font-size: var(--sm-font);
+}
+
+.logInForm input,
+.beAdminForm input,
+.beMemberForm input,
+.createMsgForm input {
+    width: 100%;
+    padding: 5px 10px;
+    color: var(--text-color);
+    font-size: var(--sm-font);
+    border-style: none;
+    background-color: white;
+    border: 1px solid var(--secondary);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.logInForm button,
+.signUpSect button,
+.beAdminForm button,
+.beMemberForm button,
+.createMsgForm button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    font-size: var(--sm-font);
+    font-weight: 700;
+    color: var(--text-color);
+    background-color: var(--primary);
+    border-style: none;
+    border-radius: 5px;
+}
+
+.logInForm button:hover,
+.signUpSect button:hover,
+.beAdminForm button:hover,
+.beMemberForm button:hover,
+.createMsgForm button:hover {
+    background-color: var(--btn-hover);
+    cursor: pointer;
+    transition: .5 ease-in-out;
+}
+
+.otherLinks p {
+    text-align: center;
+}
+
+.otherLinks a {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+.otherLinks a:hover {
+    text-decoration: none;
+}
+
+/* -----SIGN UP----- */
+.signUpSect {
+    height: 120vh;
+    padding-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--bg-color);
+}
+
+.signUpForm {
+    height: 580px;
+    width: 500px;
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.signUpForm input {
+    width: 100%;
+    padding: 5px 10px;
+    color: var(--text-color);
+    font-size: var(--sm-font);
+    border-style: none;
+    background-color: white;
+    border: 1px solid var(--secondary);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+/* -----BE MEMBER----- */
+.beAdminForm,
+.beMemberForm {
+    height: 200px;
+    width: 400px;
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+
+/* -----FOOTER----- */
+footer {
+    text-align: center;
+    background-color: var(--bg-color);
+}
+
+
+/* 
+Question what line-height is about
+*/

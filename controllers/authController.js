@@ -5,7 +5,7 @@ const db = require('../db/pool');
 
 // sign-up
 exports.getSignUp = (req, res) => {
-    res.render('sign-up', { errors: [], user_data: {} });
+    res.render('sign-up', { title: 'Sign Up', errors: [], user_data: {} });
 };
 exports.postSignUp = async (req, res, next) => {
     //Validation errors
@@ -47,7 +47,7 @@ exports.postSignUp = async (req, res, next) => {
 
 // log-in
 exports.getLogIn = (req ,res) => {
-    res.render('log-in', { messages: req.flash('error') });
+    res.render('log-in', { title: 'Log In', messages: req.flash('error') });
 };
 
 // log-out
@@ -95,7 +95,7 @@ exports.postBeMember = async(req, res, next) => {
 
 // be-admin
 exports.getBeAdmin = (req, res) => {
-    res.render('be-admin', { title: 'Enter as Admin', errors: []  });
+    res.render('be-admin', { title: 'Administrator', errors: []  });
 };
 exports.postBeAdmin = async(req, res, next) => {
     const errors = validationResult(req);

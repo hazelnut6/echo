@@ -18,7 +18,7 @@ exports.postCreateMessage = async(req, res, next) => {
             [req.body.title, req.body.text_content, req.user.id]
         );
 
-        req.flash('success', 'Message posted successfully');
+        req.flash('success', 'Message posted successfully!');
         res.redirect('/');
     } catch(err) {
         console.error('Error creating message:', err);

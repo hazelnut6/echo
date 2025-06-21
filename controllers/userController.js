@@ -34,5 +34,11 @@ exports.getHome = async (req, res, next) => {
 };
 
 // about
+exports.getAbout = (req, res) => {
+    res.render('about', { title: 'About' });
+};
 
 // contact
+exports.getContact = (req, res) => {
+    res.render('contact', { title: 'Contact Us' });
+};
